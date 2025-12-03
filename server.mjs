@@ -408,10 +408,7 @@ app.post("/connect", (req, res) => {
 
   <p>
     Retournez maintenant dans CustomGPT<br>
-    et dites exactement :
-  </p>
-
-  <div class="instruction">Le compte est connecté</div>
+    et indiquez à l'agent que le compte est connecté.
 
 </div>
 
