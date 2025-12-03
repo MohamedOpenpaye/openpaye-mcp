@@ -419,3 +419,13 @@ app.post("/connect", (req, res) => {
 </html>
 `);
 });
+
+// -----------------------------
+// START SERVER (required for Render)
+// -----------------------------
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`🚀 OpenPaye MCP server running on port ${PORT}`);
+});
+
