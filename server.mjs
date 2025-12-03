@@ -317,13 +317,12 @@ app.get("/connect", (req, res) => {
 app.post("/connect", (req, res) => {
   const { client_id, dossier_id, api_ident, api_key } = req.body;
 
-  // Stockage serveur
-  CLIENTS[client_id] = { 
-    dossier_id, 
-    api_key: `${api_ident}:${api_key}` 
+  // Stockage en mémoire
+  CLIENTS[client_id] = {
+    dossier_id,
+    api_key: `${api_ident}:${api_key}`
   };
 
-  // Page HTML
   res.setHeader("Content-Type", "text/html; charset=utf-8");
   res.end(`<!doctype html>
 <html lang="fr">
@@ -408,8 +407,8 @@ app.post("/connect", (req, res) => {
   </p>
 
   <p>
-    Vous pouvez maintenant retourner dans CustomGPT<br>
-    et indiquer à l'agent que le compte est bien connecté :
+    Retournez maintenant dans CustomGPT<br>
+    et dites exactement :
   </p>
 
   <div class="instruction">Le compte est connecté</div>
