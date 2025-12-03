@@ -208,7 +208,7 @@ app.get("/connect", (req, res) => {
   const presetId = req.query.client_id ? String(req.query.client_id) : "";
 
   res.setHeader("Content-Type", "text/html; charset=utf-8");
-  res.end((`<!doctype html>
+  res.end(`<!doctype html>
 <html lang="fr">
 <head>
 <meta charset="utf-8">
