@@ -315,17 +315,108 @@ app.get("/connect", (req, res) => {
 });
 
 app.post("/connect", (req, res) => {
-  const { client_id, dossier_id, api_key } = req.body;
+  const { client_id, dossier_id, api_ident, api_key } = req.body;
 
-  CLIENTS[client_id] = { dossier_id, api_key };
+  // Stockage serveur
+  CLIENTS[client_id] = { 
+    dossier_id, 
+    api_key: `${api_ident}:${api_key}` 
+  };
 
-  res.send(`✔️ Connecté pour ${client_id}`);
-});
+  // Page HTML
+  res.setHeader("Content-Type", "text/html; charset=utf-8");
+  res.end(`<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Connexion OpenPaye réussie</title>
 
-// -----------------------------
-// START SERVER
-// -----------------------------
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log("🚀 MCP server running on port", PORT);
+<style>
+  body {
+    font-family: system-ui, sans-serif;
+    background: #FAFAFA;
+    margin: 0;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #003068;
+  }
+
+  .card {
+    background: white;
+    padding: 40px 32px;
+    border-radius: 16px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.07);
+    border: 1px solid #E3EAF3;
+    max-width: 480px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .check {
+    font-size: 62px;
+    color: #0AAA4A;
+    margin-bottom: 12px;
+    animation: pop 0.4s ease-out;
+  }
+
+  @keyframes pop {
+    from { transform: scale(0.5); opacity: 0; }
+    to   { transform: scale(1); opacity: 1; }
+  }
+
+  h1 {
+    margin: 0 0 12px;
+    font-size: 26px;
+    font-weight: 700;
+    color: #003068;
+  }
+
+  .info {
+    font-size: 16px;
+    margin: 6px 0 24px;
+    color: #3A4750;
+  }
+
+  .instruction {
+    background: #003068;
+    color: white;
+    padding: 14px 18px;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    display: inline-block;
+    margin-top: 20px;
+  }
+</style>
+
+</head>
+<body>
+
+<div class="card">
+
+  <div class="check">✓</div>
+
+  <h1>Connexion réussie</h1>
+
+  <p class="info">
+    Votre compte OpenPaye est maintenant connecté.<br>
+    Client : <strong>${client_id}</strong>
+  </p>
+
+  <p>
+    Vous pouvez maintenant retourner dans CustomGPT<br>
+    et indiquer à l'agent que le compte est bien connecté :
+  </p>
+
+  <div class="instruction">Le compte est connecté</div>
+
+</div>
+
+</body>
+</html>
+`);
 });
