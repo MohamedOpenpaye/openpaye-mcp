@@ -205,7 +205,7 @@ app.post("/messages", async (req, res) => {
 // FORM /connect
 // -----------------------------
 app.get("/connect", (req, res) => {
-  const presetId = req.query.client_id ? String(req.query.client_id) : "";
+  const clientId = req.query.client_id ? String(req.query.client_id) : "";
 
   res.setHeader("Content-Type", "text/html; charset=utf-8");
   res.end(`<!doctype html>
