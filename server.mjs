@@ -307,7 +307,7 @@ app.get("/connect", (req, res) => {
 <body>
 
   <div class="container">
-    <h1>🔐 Connecter OpenPaye</h1>
+    <h1>Connecter OpenPaye</h1>
 
     <form method="POST" action="/connect">
       <label for="client_id">Identifiant client (email)</label>
