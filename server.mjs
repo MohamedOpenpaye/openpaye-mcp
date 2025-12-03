@@ -208,62 +208,79 @@ app.get("/connect", (req, res) => {
   const presetId = req.query.client_id ? String(req.query.client_id) : "";
 
   res.setHeader("Content-Type", "text/html; charset=utf-8");
-  res.end(`<!doctype html>
+  res.end((`<!doctype html>
 <html lang="fr">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Connecter OpenPaye</title>
 
 <style>
-body{
-  font-family:system-ui,sans-serif;background:#FAFAFA;
-  margin:0;padding:40px 20px;
-  display:flex;justify-content:center;align-items:flex-start;
-  min-height:100vh;color:#003068;
-}
+  body {
+    font-family: system-ui, sans-serif;
+    background: #FAFAFA;
+    margin: 0;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    color: #003068;
+  }
 
-.container{
-  width:100%;max-width:480px;background:white;
-  padding:32px;border-radius:16px;
-  box-shadow:0 6px 18px rgba(0,0,0,0.08);
-  border:1px solid #E3EAF3;
-}
+  .container {
+    width: 100%;
+    max-width: 480px;
+    background: white;
+    padding: 32px;
+    border-radius: 16px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    border: 1px solid #E3EAF3;
+  }
 
-h1{
-  font-size:26px;margin:0 0 20px;text-align:center;
-  color:#003068;font-weight:700;
-}
+  h1 {
+    font-size: 26px;
+    margin: 0 0 20px;
+    text-align: center;
+    font-weight: 700;
+    color: #003068;
+  }
 
-label{
-  display:block;margin:18px 0 6px;
-  font-weight:600;font-size:15px;color:#003068;
-}
+  label {
+    display: block;
+    margin: 18px 0 6px;
+    font-weight: 600;
+    font-size: 15px;
+  }
 
-input{
-  width:100%;padding:14px;font-size:16px;border-radius:10px;
-  border:1px solid #C7D3E0;background:#FFFFFF;
-  transition:border-color .2s,box-shadow .2s;
-}
+  input {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: 1px solid #C7D3E0;
+    background: white;
+  }
 
-input:focus{
-  outline:none;border-color:#003068;
-  box-shadow:0 0 0 3px rgba(0,48,104,0.15);
-}
+  button {
+    width: 100%;
+    margin-top: 28px;
+    padding: 14px;
+    background: #003068;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+  }
 
-button{
-  width:100%;margin-top:28px;padding:14px;background:#003068;
-  color:white;border:none;border-radius:10px;
-  font-size:17px;font-weight:600;cursor:pointer;
-  transition:background .2s;
-}
-
-button:hover{background:#002557;}
-
-.note{
-  text-align:center;font-size:14px;color:#4A5566;margin-top:20px;
-  line-height:1.5;
-}
+  .note {
+    text-align: center;
+    font-size: 14px;
+    color: #4A5566;
+    margin-top: 20px;
+  }
 </style>
 
 </head>
@@ -273,21 +290,18 @@ button:hover{background:#002557;}
   <h1>Connecter OpenPaye</h1>
 
   <form method="POST" action="/connect">
-
-    <label for="client_id">Email / Identifiant Client</label>
-    <input id="client_id" name="client_id" value="${presetId}" required/>
+    <input type="hidden" name="client_id" value="${clientId}">
 
     <label for="dossier_id">Numéro de dossier</label>
-    <input id="dossier_id" name="dossier_id" placeholder="ex: 4000" required/>
+    <input id="dossier_id" name="dossier_id" placeholder="ex: 4000" required>
 
-    <label for="identifiant">Identifiant (clé API - partie identifiant)</label>
-    <input id="identifiant" name="identifiant" placeholder="ex: 19823" required/>
+    <label for="api_ident">Identifiant API</label>
+    <input id="api_ident" name="api_ident" placeholder="ex: 19823" required>
 
-    <label for="api_key">Clé API (clé secrète)</label>
-    <input id="api_key" name="api_key" placeholder="sk_live_xxx" required/>
+    <label for="api_key">Clé API (secrète)</label>
+    <input id="api_key" name="api_key" placeholder="sk_live_xxx" required>
 
     <button type="submit">Enregistrer</button>
-
   </form>
 
   <p class="note">
