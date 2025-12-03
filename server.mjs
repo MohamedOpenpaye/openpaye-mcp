@@ -205,128 +205,91 @@ app.post("/messages", async (req, res) => {
 // FORM /connect
 // -----------------------------
 app.get("/connect", (req, res) => {
-  const client_id = req.query.client_id || "";
+  const presetId = req.query.client_id ? String(req.query.client_id) : "";
 
-  res.setHeader("Content-Type", "text/html");
+  res.setHeader("Content-Type", "text/html; charset=utf-8");
   res.end(`<!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Connecter OpenPaye</title>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Connecter OpenPaye</title>
 
-  <style>
-    body {
-      font-family: system-ui, sans-serif;
-      background: #FAFAFA;
-      margin: 0;
-      padding: 40px 20px;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      min-height: 100vh;
-      color: #003068;
-    }
+<style>
+body{
+  font-family:system-ui,sans-serif;background:#FAFAFA;
+  margin:0;padding:40px 20px;
+  display:flex;justify-content:center;align-items:flex-start;
+  min-height:100vh;color:#003068;
+}
 
-    .container {
-      width: 100%;
-      max-width: 480px;
-      background: white;
-      padding: 32px;
-      border-radius: 16px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-      border: 1px solid #E3EAF3;
-      animation: fadeIn 0.3s ease-out;
-    }
+.container{
+  width:100%;max-width:480px;background:white;
+  padding:32px;border-radius:16px;
+  box-shadow:0 6px 18px rgba(0,0,0,0.08);
+  border:1px solid #E3EAF3;
+}
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+h1{
+  font-size:26px;margin:0 0 20px;text-align:center;
+  color:#003068;font-weight:700;
+}
 
-    h1 {
-      font-size: 26px;
-      margin: 0 0 20px;
-      text-align: center;
-      color: #003068;
-      font-weight: 700;
-    }
+label{
+  display:block;margin:18px 0 6px;
+  font-weight:600;font-size:15px;color:#003068;
+}
 
-    label {
-      display: block;
-      margin: 18px 0 6px;
-      font-weight: 600;
-      color: #003068;
-      font-size: 15px;
-    }
+input{
+  width:100%;padding:14px;font-size:16px;border-radius:10px;
+  border:1px solid #C7D3E0;background:#FFFFFF;
+  transition:border-color .2s,box-shadow .2s;
+}
 
-    input {
-      width: 100%;
-      padding: 14px;
-      font-size: 16px;
-      border-radius: 10px;
-      border: 1px solid #C7D3E0;
-      background: #FFFFFF;
-      transition: border-color .2s, box-shadow .2s;
-    }
+input:focus{
+  outline:none;border-color:#003068;
+  box-shadow:0 0 0 3px rgba(0,48,104,0.15);
+}
 
-    input:focus {
-      outline: none;
-      border-color: #003068;
-      box-shadow: 0 0 0 3px rgba(0,48,104,0.15);
-    }
+button{
+  width:100%;margin-top:28px;padding:14px;background:#003068;
+  color:white;border:none;border-radius:10px;
+  font-size:17px;font-weight:600;cursor:pointer;
+  transition:background .2s;
+}
 
-    button {
-      width: 100%;
-      margin-top: 28px;
-      padding: 14px;
-      background: #003068;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      font-size: 17px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background .2s;
-    }
+button:hover{background:#002557;}
 
-    button:hover {
-      background: #002557;
-    }
-
-    .note {
-      text-align: center;
-      font-size: 14px;
-      color: #4A5566;
-      margin-top: 20px;
-      line-height: 1.5;
-    }
-  </style>
+.note{
+  text-align:center;font-size:14px;color:#4A5566;margin-top:20px;
+  line-height:1.5;
+}
+</style>
 
 </head>
 <body>
 
-  <div class="container">
-    <h1>Connecter OpenPaye</h1>
+<div class="container">
+  <h1>Connecter OpenPaye</h1>
 
-    <form method="POST" action="/connect">
-      <label for="client_id">Identifiant client (email)</label>
-      <input id="client_id" name="client_id" value="${presetId}" placeholder="ex: mohamed@openpaye.co" required>
+  <form method="POST" action="/connect">
+    <label for="client_id">Identifiant client (email)</label>
+    <input id="client_id" name="client_id" value="${presetId}" required/>
 
-      <label for="dossier_id">Numéro de dossier OpenPaye</label>
-      <input id="dossier_id" name="dossier_id" placeholder="ex: 4000" required>
+    <label for="dossier_id">Numéro de dossier OpenPaye</label>
+    <input id="dossier_id" name="dossier_id" placeholder="ex: 4000" required/>
 
-      <label for="api_key">Clé API OpenPaye</label>
-      <input id="api_key" name="api_key" placeholder="sk_live_xxx" required>
+    <label for="api_key">Clé API OpenPaye</label>
+    <input id="api_key" name="api_key" placeholder="sk_live_xxx" required/>
 
-      <button type="submit">Enregistrer</button>
-    </form>
+    <button type="submit">Enregistrer</button>
+  </form>
 
-    <p class="note">
-      Les informations sont stockées sur le serveur sécurisé et ne sont jamais<br>
-      envoyées à CustomGPT ou à un service externe.
-    </p>
-  </div>
+  <p class="note">
+    Les identifiants sont stockés sur le serveur sécurisé<br>
+    et ne sont jamais envoyés à CustomGPT.
+  </p>
+</div>
 
 </body>
 </html>`);
