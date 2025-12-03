@@ -273,20 +273,25 @@ button:hover{background:#002557;}
   <h1>Connecter OpenPaye</h1>
 
   <form method="POST" action="/connect">
-    <label for="client_id">Identifiant client (email)</label>
+
+    <label for="client_id">Email / Identifiant Client</label>
     <input id="client_id" name="client_id" value="${presetId}" required/>
 
-    <label for="dossier_id">Numéro de dossier OpenPaye</label>
+    <label for="dossier_id">Numéro de dossier</label>
     <input id="dossier_id" name="dossier_id" placeholder="ex: 4000" required/>
 
-    <label for="api_key">Clé API OpenPaye</label>
+    <label for="identifiant">Identifiant (clé API - partie identifiant)</label>
+    <input id="identifiant" name="identifiant" placeholder="ex: 19823" required/>
+
+    <label for="api_key">Clé API (clé secrète)</label>
     <input id="api_key" name="api_key" placeholder="sk_live_xxx" required/>
 
     <button type="submit">Enregistrer</button>
+
   </form>
 
   <p class="note">
-    Les identifiants sont stockés sur le serveur sécurisé<br>
+    Vos identifiants sont stockés sur le serveur sécurisé<br>
     et ne sont jamais envoyés à CustomGPT.
   </p>
 </div>
